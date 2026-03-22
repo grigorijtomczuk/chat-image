@@ -1,7 +1,7 @@
 import {
-	addButtonToImagePopoutHeader,
 	addEntryToInventoryItemContextMenu,
 	addMacroFunctions,
+	addOptionToImagePopoutHeader,
 	onRenderChatMessage,
 } from "./main.js";
 import {
@@ -16,11 +16,11 @@ Hooks.once("setup", () => {
 Hooks.once("ready", () => {
 	if (!game.modules.get("lib-wrapper")?.active && game.user.isGM) {
 		ui.notifications.error(
-			game.i18n.localize(`${MODULE_ID}.libwrapper-error-message`)
+			game.i18n.localize(`${MODULE_ID}.libwrapper-error-message`),
 		);
 		return;
 	}
-	addButtonToImagePopoutHeader();
+	addOptionToImagePopoutHeader();
 	addEntryToInventoryItemContextMenu();
 	addMacroFunctions([sendTokenActorImageToChat, sendFileImageToChat]);
 });

@@ -6,7 +6,7 @@ import {
 
 export async function createImageChatMessage(
 	imageSrc,
-	imageBorderHidden = false
+	imageBorderHidden = false,
 ) {
 	await ChatMessage.create(
 		{
@@ -18,7 +18,7 @@ export async function createImageChatMessage(
 			   	</div>
 			   	`,
 		},
-		{}
+		{},
 	);
 }
 
@@ -26,39 +26,42 @@ export function onRenderChatMessage(message, html, messageData) {
 	const image = html.find(`img.${CHAT_MESSAGE_IMAGE_CLASS}`);
 	image.click((event) => {
 		event.preventDefault();
-		const imagePopout = new ImagePopout(image.attr("src"));
+		const imagePopout = new ImagePopout({
+			src: image.attr("src"),
+			window: { icon: false },
+		});
 		imagePopout.options.classes.push(CHAT_MESSAGE_IMAGE_CLASS);
 		imagePopout.render(true);
 	});
 }
 
-export function addButtonToImagePopoutHeader() {
-	function addButtonToImagePopoutHeaderWrapper(wrapped, ...args) {
-		const headerButtons = wrapped.apply(this, args);
+export function addOptionToImagePopoutHeader() {
+	function addOptionToImagePopoutHeaderWrapper(wrapped, ...args) {
+		const headerOptions = wrapped.apply(this, args);
 		if (this.options.classes.includes(CHAT_MESSAGE_IMAGE_CLASS)) {
-			// In case of opening an ImagePopout from chat, only show close button
-			return headerButtons.filter((button) => button.class == "close");
+			// Remove options for images sent via this feature
+			return [];
 		}
 
-		const button = {
+		const option = {
 			label: game.i18n.localize(`${MODULE_ID}.button-label`),
-			class: "send-to-chat",
+			action: "sendToChat",
 			icon: "fas fa-image",
-			onclick: async () => {
-				createImageChatMessage(this.object);
+			onClick: async () => {
+				createImageChatMessage(this.element.querySelector("img").src);
 				this.close();
 			},
 		};
 
-		headerButtons.unshift(button);
-		return headerButtons;
+		headerOptions.unshift(option);
+		return headerOptions;
 	}
 
 	libWrapper.register(
 		MODULE_ID,
-		"ImagePopout.prototype._getHeaderButtons",
-		addButtonToImagePopoutHeaderWrapper,
-		"WRAPPER"
+		"ImagePopout.prototype._getHeaderControls",
+		addOptionToImagePopoutHeaderWrapper,
+		"WRAPPER",
 	);
 }
 
@@ -69,10 +72,11 @@ export function addEntryToInventoryItemContextMenu() {
 			icon: `<i class="fas fa-image"></i>`,
 			callback: (li) => {
 				const itemId = li.data("item-id");
-				const actor = game.actors.get(
-					li.data("uuid").match(/(?<=Actor\.)[^\.]+/)[0]
-				);
-				const item = actor.items.get(itemId);
+				const appId = li.closest(".app").data("appid");
+				const app = ui.windows[appId];
+
+				const actor = app?.actor;
+				const item = actor?.items.get(itemId);
 
 				if (item) {
 					const imageSrc = item.img;
@@ -91,7 +95,7 @@ export function addEntryToInventoryItemContextMenu() {
 		MODULE_ID,
 		"dnd5e.applications.components.InventoryElement.prototype._getContextOptions",
 		addEntryToInventoryItemContextMenuWrapper,
-		"WRAPPER"
+		"WRAPPER",
 	);
 }
 
