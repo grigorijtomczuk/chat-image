@@ -1,7 +1,7 @@
 {
-	"id": "send-in-game-image-to-chat",
-	"title": "Send In-Game Image To Chat",
-	"description": "Share any in-game image in chat for your players to admire.",
+	"id": "chat-image",
+	"title": "Chat Image",
+	"description": "Share any in-game image in chat for your players to immerse.",
 	"version": "1.0.0",
 	"compatibility": {
 		"minimum": "13",
@@ -25,7 +25,7 @@
 		{
 			"name": "grigorijtomczuk",
 			"email": "grigorijtomczuk@gmail.com",
-			"url": "https://grigorijtomczuk.github.io/portfolio/",
+			"url": "https://grigorijtomczuk.ru",
 			"discord": "grigorijtomczuk"
 		}
 	],

@@ -1,5 +1,5 @@
 {
-	"send-in-game-image-to-chat.button-label": "Отправить в чат",
-	"send-in-game-image-to-chat.libwrapper-error-message": "Модуль \"Send In-Game Image To Chat\" требует для работы модуль \"libWrapper\". Установите и активируйте его.",
-	"send-in-game-image-to-chat.token-selection-error-message": "Токен не выбран."
+	"chat-image.button-label": "Отправить в чат",
+	"chat-image.libwrapper-error-message": "Модуль \"Chat Image\" требует для работы модуль \"libWrapper\". Установите и активируйте его.",
+	"chat-image.token-selection-error-message": "Токен не выбран."
 }
