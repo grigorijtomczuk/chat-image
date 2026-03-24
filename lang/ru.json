@@ -1,5 +1,6 @@
 {
 	"chat-image.button-label": "Отправить в чат",
 	"chat-image.libwrapper-error-message": "Модуль \"Chat Image\" требует для работы модуль \"libWrapper\". Установите и активируйте его.",
-	"chat-image.token-selection-error-message": "Токен не выбран."
+	"chat-image.token-selection-error-message": "Токен не выбран.",
+	"chat-image.image-popout-default-title": "Загруженное изображение"
 }

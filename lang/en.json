@@ -1,5 +1,6 @@
 {
 	"chat-image.button-label": "Send to chat",
 	"chat-image.libwrapper-error-message": "Module \"Chat Image\" requires the \"libWrapper\" module. Please install and activate it.",
-	"chat-image.token-selection-error-message": "No token is selected."
+	"chat-image.token-selection-error-message": "No token is selected.",
+	"chat-image.image-popout-default-title": "Uploaded image"
 }

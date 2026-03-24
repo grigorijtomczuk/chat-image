@@ -4,15 +4,17 @@ import { createImageChatMessage } from "./main.js";
 export async function sendTokenActorImageToChat(token) {
 	if (!token) {
 		ui.notifications.warn(
-			game.i18n.localize(`${MODULE_ID}.token-selection-error-message`)
+			game.i18n.localize(`${MODULE_ID}.token-selection-error-message`),
 		);
 		return;
 	}
 
 	const tokenImages = await token.actor.getTokenImages();
-	const actorThumbnail = await token.actor.thumbnail;
+	const tokenName = token.name;
+	const actorThumbnail = token.actor.thumbnail;
 	let imageSrc = "";
 	let imageBorderHidden = false;
+	console.log(tokenImages.length);
 
 	if (!actorThumbnail || tokenImages.length > 1) {
 		imageSrc = token.document.texture.src;
@@ -21,15 +23,16 @@ export async function sendTokenActorImageToChat(token) {
 		imageSrc = actorThumbnail;
 	}
 
-	createImageChatMessage(imageSrc, imageBorderHidden);
+	createImageChatMessage(imageSrc, tokenName, imageBorderHidden);
 }
 
 export function sendFileImageToChat() {
-	let imageSrc = "";
 	const picker = new FilePicker({
 		callback: (filePath) => {
-			imageSrc = filePath;
-			createImageChatMessage(imageSrc);
+			createImageChatMessage(
+				filePath,
+				game.i18n.localize(`${MODULE_ID}.image-popout-default-title`),
+			);
 		},
 	});
 	picker.render(true);

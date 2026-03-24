@@ -6,13 +6,15 @@ import {
 
 export async function createImageChatMessage(
 	imageSrc,
+	imageTitle = game.i18n.localize(`${MODULE_ID}.image-popout-default-title`),
 	imageBorderHidden = false,
 ) {
 	await ChatMessage.create(
 		{
 			content: `
 				<div class="ci-message">
-					<img class="${CHAT_MESSAGE_IMAGE_CLASS}" src="${imageSrc}" style="width: 100%; cursor: pointer; \
+					<img class="${CHAT_MESSAGE_IMAGE_CLASS}" src="${imageSrc}" \
+					data-title="${imageTitle}" style="width: 100%; cursor: pointer; \
 					${imageBorderHidden ? "border: 1px solid transparent" : ""}"
 					/>
 			   	</div>
@@ -28,7 +30,7 @@ export function onRenderChatMessage(message, html, messageData) {
 		event.preventDefault();
 		const imagePopout = new ImagePopout({
 			src: image.attr("src"),
-			window: { icon: false },
+			window: { title: image.data("title") },
 		});
 		imagePopout.options.classes.push(CHAT_MESSAGE_IMAGE_CLASS);
 		imagePopout.render(true);
@@ -43,12 +45,13 @@ export function addOptionToImagePopoutHeader() {
 			return [];
 		}
 
+		const image = this.element.querySelector("img");
 		const option = {
 			label: game.i18n.localize(`${MODULE_ID}.button-label`),
 			action: "sendToChat",
 			icon: "fas fa-image",
 			onClick: async () => {
-				createImageChatMessage(this.element.querySelector("img").src);
+				createImageChatMessage(image.src, this.window.title.innerText);
 				this.close();
 			},
 		};
@@ -79,8 +82,7 @@ export function addEntryToInventoryItemContextMenu() {
 				const item = actor?.items.get(itemId);
 
 				if (item) {
-					const imageSrc = item.img;
-					createImageChatMessage(imageSrc);
+					createImageChatMessage(item.img, item.name);
 				} else {
 					console.error(`Item with ID ${itemId} not found.`);
 				}
