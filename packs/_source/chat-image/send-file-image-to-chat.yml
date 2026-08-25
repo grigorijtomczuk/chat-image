@@ -1,0 +1,12 @@
+_id: send-file-image-to-chat
+name: send-file-image-to-chat
+type: script
+img: icons/sundries/books/book-tooled-grey.webp
+scope: global
+command: chatImage.sendFileImageToChat();
+_stats:
+    coreVersion: "14.367"
+    systemId: dnd5e
+    systemVersion: 5.3.3
+sort: 0
+_key: "!macros!send-file-image-to-chat"

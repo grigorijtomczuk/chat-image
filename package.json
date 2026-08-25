@@ -1,0 +1,9 @@
+{
+	"scripts": {
+		"pack": "node ./tools/pullYMLtoLDB.mjs",
+		"unpack": "node ./tools/pushLDBtoYML.mjs"
+	},
+	"devDependencies": {
+		"@foundryvtt/foundryvtt-cli": "^3.0.4"
+	}
+}

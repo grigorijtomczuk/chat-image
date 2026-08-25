@@ -1,0 +1,11 @@
+{
+	"label": "\"Chat Image\" Macros",
+	"entries": {
+		"send-file-image-to-chat": {
+			"name": "Send file image to chat"
+		},
+		"send-token-image-to-chat": {
+			"name": "Send token image to chat"
+		}
+	}
+}

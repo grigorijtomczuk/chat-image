@@ -1,0 +1,14 @@
+_id: send-token-image-to-chat
+name: send-token-image-to-chat
+type: script
+img: icons/equipment/head/hood-cloth-brown.webp
+scope: global
+command: |-
+    const token = canvas.tokens.controlled[0]
+    chatImage.sendTokenActorImageToChat(token)
+_stats:
+    coreVersion: "14.367"
+    systemId: dnd5e
+    systemVersion: 5.3.3
+sort: 0
+_key: "!macros!send-token-image-to-chat"

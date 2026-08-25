@@ -1,0 +1,11 @@
+{
+	"label": "Макросы \"Chat Image\"",
+	"entries": {
+		"send-file-image-to-chat": {
+			"name": "Отправить изображение-файл в чат"
+		},
+		"send-token-image-to-chat": {
+			"name": "Отправить изображение токена в чат"
+		}
+	}
+}

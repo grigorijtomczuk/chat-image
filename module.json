@@ -2,15 +2,19 @@
 	"id": "chat-image",
 	"title": "Chat Image",
 	"description": "Share any in-game image in chat for your players to immerse.",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"compatibility": {
-		"minimum": "13",
-		"verified": "13.351"
+		"minimum": "14",
+		"verified": "14.367"
 	},
 	"relationships": {
 		"requires": [
 			{
 				"id": "lib-wrapper",
+				"type": "module"
+			},
+			{
+				"id": "babele",
 				"type": "module"
 			}
 		],
@@ -41,7 +45,22 @@
 			"path": "lang/ru.json"
 		}
 	],
+	"packs": [
+		{
+			"name": "chat-image",
+			"label": "Chat Image Macros",
+			"path": "packs/chat-image",
+			"type": "Macro",
+			"system": "dnd5e"
+		}
+	],
 	"esmodules": ["scripts/hooks.js"],
+	"flags": {
+		"hotReload": {
+			"extensions": ["js"],
+			"paths": ["scripts"]
+		}
+	},
 	"url": "",
 	"manifest": "",
 	"download": "",
