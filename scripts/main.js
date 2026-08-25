@@ -69,36 +69,14 @@ export function addOptionToImagePopoutHeader() {
 }
 
 export function addEntryToInventoryItemContextMenu() {
-	function addEntryToInventoryItemContextMenuWrapper(wrapped, ...args) {
+	Hooks.on("dnd5e.getItemContextOptions", (item, contextMenuEntries) => {
 		const entry = {
 			name: game.i18n.localize(`${MODULE_ID}.button-label`),
 			icon: `<i class="fas fa-image"></i>`,
-			callback: (li) => {
-				const itemId = li.data("item-id");
-				const appId = li.closest(".app").data("appid");
-				const app = ui.windows[appId];
-
-				const actor = app?.actor;
-				const item = actor?.items.get(itemId);
-
-				if (item) {
-					createImageChatMessage(item.img, item.name);
-				} else {
-					console.error(`Item with ID ${itemId} not found.`);
-				}
-			},
+			callback: () => createImageChatMessage(item.img, item.name),
 		};
-		const contextMenuEntries = wrapped.apply(this, args);
 		contextMenuEntries.splice(1, 0, entry);
-		return contextMenuEntries;
-	}
-
-	libWrapper.register(
-		MODULE_ID,
-		"dnd5e.applications.components.InventoryElement.prototype._getContextOptions",
-		addEntryToInventoryItemContextMenuWrapper,
-		"WRAPPER",
-	);
+	});
 }
 
 export function addMacroFunctions(functions) {
